@@ -14,7 +14,7 @@ class Cliente(models.Model):
     conexoes = models.IntegerField()
 
 
-class HashDeVideoNaoEncontrado(Exception):
+class VideoNaoEncontrado(Exception):
     pass
 
 
@@ -34,11 +34,22 @@ class Video(models.Model):
         self.url_expira_em = datetime.utcnow() + timedelta(days=1),
         self.save()
 
-    def obtem_pelo_hash(self, url_hash):
+    @classmethod
+    def obtem_pelo_id(cls, video_id, cliente_id):
+        try:
+            video = Video.objects.get(id=video_id, cliente_id=cliente_id)
+        except Video.DoesNotExist:
+            raise VideoNaoEncontrado(u'Não foi encontrado um vídeo com id {}.'.format(video_id))
+        if video.url_expira_em < datetime.utcnow():
+            raise HashDeVideoExpirado(u'O hash {} para esse vídeo expirou.')
+        return video
+
+    @classmethod
+    def obtem_pelo_hash(cls, url_hash):
         try:
             video = Video.objects.get(url_hash=url_hash)
         except Video.DoesNotExist:
-            raise HashDeVideoNaoEncontrado(u'Não foi encontrado um vídeo do o hash {}'.format(url_hash))
+            raise VideoNaoEncontrado(u'Não foi encontrado um vídeo do o hash {}'.format(url_hash))
         if video.url_expira_em < datetime.utcnow():
             raise HashDeVideoExpirado(u'O hash {} para esse vídeo expirou.')
         return video
