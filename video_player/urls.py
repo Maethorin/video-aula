@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 
-
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
 urlpatterns = patterns(
     '',
-    url(r'^$', 'land_site.views.home', name='home'),
-    url(r'^video-player/', include('video_player.urls')),
+   url(r'^(?P<url_hash>.*)$', 'video_player.views.home', name='video-player-home'),
+   url(r'^admin/', include(admin.site.urls)),
 )

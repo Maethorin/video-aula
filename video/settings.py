@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 Django settings for video project.
 
@@ -24,7 +26,7 @@ SECRET_KEY = '*ii-lp5iw(d^xzda+n4=js!f#g7aggkoyh(f=o8o6zz768uvtr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-DATABASES = {'default': dj_database_url.config(default="postgres://megasena:megasena@localhost:5432/megasena")}
+DATABASES = {'default': dj_database_url.config(default="postgres://dominadoaulas:dominadoaulas@localhost:5432/dominadoaulas")}
 ALLOWED_HOSTS = []
 
 
@@ -37,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'land_site',
     'video_player',
 )
 

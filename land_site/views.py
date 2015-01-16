@@ -4,5 +4,5 @@ from django.shortcuts import render
 from django.shortcuts import render_to_response
 
 
-def home(request, url_hash):
-    return render_to_response('video_player/home.html')
+def home(request):
+    return render_to_response('land_site/home.html')
